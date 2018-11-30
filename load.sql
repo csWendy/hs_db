@@ -43,6 +43,28 @@ INTO TABLE Schools
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
+CREATE TABLE Class_sizes
+(
+    grade_level char(7),
+    program_type varchar(15),
+    department varchar(7),
+    class_size varchar(5),
+    number_of_students int(5),
+    number_of_classes int(4),
+    percent_of_students_in_grade decimal(3,1),
+    id int NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id)
+);
+
+LOAD DATA LOCAL INFILE '2017-_2018_Class_Size_Report_City_Middle_And_High_School_Class_Size_Distribution.csv'
+INTO TABLE Class_sizes
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+IGNORE 1 LINES;
+
+# delete middle school records
+DELETE FROM Class_sizes
+WHERE grade_level='MS CORE';
+
 # delete unused columns
 ALTER TABLE Schools
 DROP total_students,

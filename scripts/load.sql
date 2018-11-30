@@ -1,4 +1,4 @@
-DROP DATABASE High_schools;
+-- DROP DATABASE High_schools;
 
 CREATE DATABASE IF NOT EXISTS High_schools
 DEFAULT CHARACTER SET utf8
@@ -6,8 +6,8 @@ DEFAULT COLLATE utf8_bin;
 
 USE High_schools;
 
-# loading all columns w/o skipping because the data
-# we will keep may change in future
+-- loading all columns w/o skipping because the data
+-- we will keep may change in future
 CREATE TABLE Schools
 (
     dbn char(6),
@@ -43,6 +43,9 @@ INTO TABLE Schools
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
+-- adding a primary key id will produce warnings when loading
+-- the data, bc the there are more columns in table than in csv
+-- this is safe to ignore
 CREATE TABLE Class_sizes
 (
     grade_level char(7),
@@ -61,11 +64,11 @@ INTO TABLE Class_sizes
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
-# delete middle school records
+-- delete middle school records
 DELETE FROM Class_sizes
 WHERE grade_level='MS CORE';
 
-# delete unused columns
+-- delete unused columns
 ALTER TABLE Schools
 DROP total_students,
 DROP community_board,

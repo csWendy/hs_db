@@ -38,7 +38,7 @@ CREATE TABLE Schools
     NTA varchar(100)
 );
 
-LOAD DATA LOCAL INFILE '2018_DOE_High_School_Directory.csv'
+LOAD DATA LOCAL INFILE 'data/2018_DOE_High_School_Directory.csv'
 INTO TABLE Schools
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
@@ -59,7 +59,7 @@ CREATE TABLE Class_sizes
     PRIMARY KEY (id)
 );
 
-LOAD DATA LOCAL INFILE '2017-_2018_Class_Size_Report_City_Middle_And_High_School_Class_Size_Distribution.csv'
+LOAD DATA LOCAL INFILE 'data/2017-_2018_Class_Size_Report_City_Middle_And_High_School_Class_Size_Distribution.csv'
 INTO TABLE Class_sizes
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;

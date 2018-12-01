@@ -23,6 +23,8 @@ CREATE TABLE Schools
     total_students int(5),
     start_time varchar(6),
     end_time varchar(6),
+    graduation_rate decimal(4,2),
+    college_career_rate decimal(4,2),
     primary_address_line_1 varchar(50),
     city varchar(20),
     postcode char(5),
@@ -43,25 +45,42 @@ INTO TABLE Schools
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
--- adding a primary key id will produce warnings when loading
--- the data, bc the there are more columns in table than in csv
--- this is safe to ignore
-CREATE TABLE Class_sizes
+CREATE TABLE School_performance
 (
-    grade_level char(7),
-    program_type varchar(15),
-    department varchar(7),
-    class_size varchar(5),
-    number_of_students int(5),
-    number_of_classes int(4),
-    percent_of_students_in_grade decimal(3,1),
-    id int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (id)
+    dbn char(6),
+    school_name varchar(100),
+    percent_graduated_level_one varchar(7),
+    percent_graduated_level_two varchar(7),
+    percent_graduated_level_three_four varchar(7),
+    avg_act_english_score decimal(3, 1),
+    avg_act_math_score decimal(3, 1),
+    avg_act_reading_score decimal(3, 1),
+    avg_act_science_score decimal(3, 1),
+    avg_sat_math_score decimal(4, 1),    
+    avg_sat_reading_writing_score decimal(4, 1)
 );
 
-LOAD DATA LOCAL INFILE 'data/2017-_2018_Class_Size_Report_City_Middle_And_High_School_Class_Size_Distribution.csv'
-INTO TABLE Class_sizes
+LOAD DATA LOCAL INFILE 'data/201718_hs_sqr_results.csv'
+INTO TABLE School_performance
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+IGNORE 1 LINES;
+
+CREATE TABLE Class_sizes
+(
+    dbn char(6),
+    school_name varchar(100),
+    grade_level char(7),
+    program_type varchar(15),
+    department varchar(15),
+    subject varchar(50),
+    num_students int,
+    num_classes int,
+    avg_class_size decimal(4,1)
+);
+
+LOAD DATA LOCAL INFILE 'data/2015_-_2016_Final_Class_Size_Report_Middle___High_School.tsv'
+INTO TABLE Class_sizes
+FIELDS TERMINATED BY '\t' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
 -- delete middle school records
@@ -77,3 +96,6 @@ DROP census_tract,
 DROP BIN,
 DROP BBL,
 DROP NTA;
+
+ALTER TABLE School_performance
+DROP school_name;

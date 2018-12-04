@@ -60,7 +60,6 @@ CREATE TABLE School_performance
     avg_sat_reading_writing_score decimal(4, 1),
     eid int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (eid)
-    
 );
 
 -- this will warn that the file does not have data to fill all columns
@@ -124,4 +123,3 @@ DROP program_type,
 DROP subject,
 DROP num_students,
 DROP avg_class_size;
-

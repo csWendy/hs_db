@@ -1,4 +1,4 @@
--- DROP DATABASE High_schools;
+DROP DATABASE High_schools;
 
 CREATE DATABASE IF NOT EXISTS High_schools
 DEFAULT CHARACTER SET utf8
@@ -97,13 +97,13 @@ WHERE grade_level='MS Core';
 
 -- delete unused columns
 ALTER TABLE Schools
-DROP total_students,
+DROP boro,
 DROP community_board,
 DROP counsel_district,
 DROP census_tract,
 DROP BIN,
 DROP BBL,
-DROP NTA;
+DROP NTA,
 DROP latitude,
 DROP longitude,
 DROP city,
@@ -120,6 +120,4 @@ ALTER TABLE Class_sizes
 DROP school_name,
 DROP grade_level,
 DROP program_type,
-DROP subject,
-DROP num_students,
-DROP avg_class_size;
+DROP subject;

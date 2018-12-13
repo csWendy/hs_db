@@ -11,10 +11,10 @@ SELECT dbn, eid
 FROM School_performance_temp;
 
 CREATE TABLE School_performances AS
-SELECT School_performance_temp.*, schools.graduation_rate, schools.college_career_rate
+SELECT School_performance_temp.*, Schools.graduation_rate, Schools.college_career_rate
 FROM Schools
 JOIN School_performance_temp
-    ON schools.dbn = School_performance_temp.dbn;
+    ON Schools.dbn = School_performance_temp.dbn;
 
 ALTER TABLE Schools
 DROP graduation_rate,

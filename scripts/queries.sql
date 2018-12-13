@@ -1,13 +1,4 @@
 -- School equals zip code given by user
-SELECT
-    CASE WHEN LENGTH(school_name) > 32
-        THEN CONCAT(SUBSTRING(school_name, 1, 32), '...')
-        ELSE school_name END AS school_name,
-    dbn,
-    postcode
-FROM Schools
-WHERE postcode = GIVEN_ZIP;
-
 -- example post code searches
 -- where postcode is equal to given
 SELECT
@@ -161,11 +152,30 @@ WHERE 100 <= total_students AND total_students <= 1000
 ORDER BY total_students DESC;
 
 -- medium
+SELECT 
+    CASE WHEN LENGTH(school_name) > 32
+        THEN CONCAT(SUBSTRING(school_name, 1, 32), '...')
+        ELSE school_name END AS school_name,
+    dbn,
+    total_students
+FROM Schools
+-- small
 WHERE 1000 < total_students AND total_students <= 3000
+ORDER BY total_students DESC;
 --large
+SELECT 
+    CASE WHEN LENGTH(school_name) > 32
+        THEN CONCAT(SUBSTRING(school_name, 1, 32), '...')
+        ELSE school_name END AS school_name,
+    dbn,
+    total_students
+FROM Schools
+-- small
 WHERE 3000 < total_students
+ORDER BY total_students DESC;
 
 -- search by bus or subway
+-- example: m16
 SELECT
     CASE WHEN LENGTH(school_name) > 32
         THEN CONCAT(SUBSTRING(school_name, 1, 32), '...')
@@ -173,9 +183,10 @@ SELECT
     dbn,
     bus
 FROM Schools
-WHERE bus LIKE '%GIVEN_BUS%';
+WHERE bus LIKE '%m16%';
 
 --or subway
+-- example: 6 line
 SELECT
     CASE WHEN LENGTH(school_name) > 32
         THEN CONCAT(SUBSTRING(school_name, 1, 32), '...')
@@ -183,4 +194,4 @@ SELECT
     dbn,
     subway
 FROM Schools
-WHERE subway LIKE '%GIVEN_SUBWAY%';
+WHERE subway LIKE '%6%';

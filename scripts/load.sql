@@ -45,7 +45,7 @@ INTO TABLE Schools
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
-CREATE TABLE School_performance
+CREATE TABLE School_performance_temp
 (
     dbn char(6),
     school_name varchar(100),
@@ -65,7 +65,7 @@ CREATE TABLE School_performance
 -- this will warn that the file does not have data to fill all columns
 -- this is because of the added eid field and is safe to ignore
 LOAD DATA LOCAL INFILE 'data/201718_hs_sqr_results.csv'
-INTO TABLE School_performance
+INTO TABLE School_performance_temp
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 IGNORE 1 LINES;
 
@@ -110,7 +110,7 @@ DROP city,
 DROP fax_number,
 DROP location;
 
-ALTER TABLE School_performance
+ALTER TABLE School_performance_temp
 DROP school_name,
 DROP percent_graduated_level_one,
 DROP percent_graduated_level_two,
@@ -121,3 +121,30 @@ DROP school_name,
 DROP grade_level,
 DROP program_type,
 DROP subject;
+
+-- strip out 0 values (which were inserted b/c of
+-- non numerical characters being used to indicate
+-- missing information in source data set)
+UPDATE School_performance_temp
+SET avg_act_english_score = NULL
+WHERE avg_act_english_score = 0;
+
+UPDATE School_performance_temp
+SET avg_act_math_score = NULL
+WHERE avg_act_math_score = 0;
+
+UPDATE School_performance_temp
+SET avg_act_reading_score = NULL
+WHERE avg_act_reading_score = 0;
+
+UPDATE School_performance_temp
+SET avg_act_science_score = NULL
+WHERE avg_act_science_score = 0;
+
+UPDATE School_performance_temp
+SET avg_sat_math_score = NULL
+WHERE avg_sat_math_score = 0;
+
+UPDATE School_performance_temp
+SET avg_sat_reading_writing_score = NULL
+WHERE avg_sat_reading_writing_score = 0;

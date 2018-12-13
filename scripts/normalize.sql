@@ -8,19 +8,19 @@ CREATE TABLE SE_ID
 
 INSERT INTO SE_ID (dbn, eid)
 SELECT dbn, eid
-FROM School_performance;
+FROM School_performance_temp;
 
 CREATE TABLE School_performances AS
-SELECT School_performance.*, schools.graduation_rate, schools.college_career_rate
-FROM schools
-JOIN School_performance
-    ON schools.dbn = School_performance.dbn;
+SELECT School_performance_temp.*, schools.graduation_rate, schools.college_career_rate
+FROM Schools
+JOIN School_performance_temp
+    ON schools.dbn = School_performance_temp.dbn;
 
 ALTER TABLE Schools
 DROP graduation_rate,
 DROP college_career_rate;
 
-DROP TABLE School_performance;
+DROP TABLE School_performance_temp;
 
 CREATE TABLE SC_ID
 (
